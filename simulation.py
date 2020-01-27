@@ -245,7 +245,7 @@ if __name__== "__main__":
 	parser.add_argument('-t', action="store_true", default=False, help = 'Transpile only')
 	args = parser.parse_args()
 
-	IBMQ.load_accounts()
+	IBMQ.load_account()
 	curdir = os.getcwd()
 	input_path = os.path.join(curdir, args.indir)
 	output_path = os.path.join(curdir, args.outdir)
@@ -254,7 +254,8 @@ if __name__== "__main__":
 	elif args.backend == 'simulator':
 		backend = Aer.get_backend('qasm_simulator')
 	else:
-		backend = IBMQ.backends(filters = lambda x: x.name() == args.backend).pop()
+		provider = IBMQ.get_provider(hub='ibm-q')
+		backend = provider.backends(filters = lambda x: x.name() == args.backend).pop()
 	print('BACKEND: ', backend.name() )
 	simulator = SimManager(input_path, output_path, backend, args.circs_per_job, args.optim, args.jobs)
 	
