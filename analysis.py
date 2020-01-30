@@ -88,10 +88,10 @@ class Analysis:
 	def extract_parameters_cols(self):
 		circ_names = set(self.df.index.values)
 		for circ in circ_names:
-			self.df.loc[int(circ.split("f1")[1].split("_")[0]),"f1"]
-			self.df.loc[int(circ.split("g")[1].split("_")[0]),"g"]
-			self.df.loc[int(circ.split("l")[1].split("_")[0]),"l"]
-			self.df.loc[int(circ.split("f2")[1][0:1]),"f2"]
+			self.df.loc[circ,"f1"] = int(circ.split("f1")[1].split("_")[0])
+			self.df.loc[circ,"g"] = int(circ.split("g")[1].split("_")[0])
+			self.df.loc[circ,"l"] = int(circ.split("l")[1].split("_")[0])
+			self.df.loc[circ,"f2"] = int(circ.split("f2")[1][0:1])
 
 
 		return sim_results.items()
